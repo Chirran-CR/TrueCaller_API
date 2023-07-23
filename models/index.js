@@ -8,8 +8,6 @@ const sequelize = new Sequelize(
     dbConfig.PASSWORD,
     {
         host:dbConfig.HOST,
-        // port:3306,
-        // dialect:'mysql',
         dialect:dbConfig.dialect,
         // operatorsAliases: false,
     }
@@ -28,8 +26,16 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.users = require("./userModel")(sequelize, DataTypes);
+db.contacts =require("./contactModel")(sequelize, DataTypes);
 
-db.sequelize.sync({force:false})
+//one to many relationship b/n Users->Contact: one User can have many contact
+db.users.hasMany(db.contacts,{ foreignKey:"linkedPhoneNo", as: "contacts"});
+db.contacts.belongsTo(db.users,{
+    foreignKey:"linkedPhoneNo" ,
+    as:"user"
+})
+
+db.sequelize.sync({alter:true})
 .then(()=>{
     console.log("Database re-synced successfully !!");
 }).catch((err)=>{
