@@ -27,6 +27,7 @@ db.sequelize = sequelize;
 
 db.users = require("./userModel")(sequelize, DataTypes);
 db.contacts =require("./contactModel")(sequelize, DataTypes);
+db.spams = require("./spamModel.js")(sequelize, DataTypes);
 
 //one to many relationship b/n Users->Contact: one User can have many contact
 db.users.hasMany(db.contacts,{ foreignKey:"linkedPhoneNo", as: "contacts"});

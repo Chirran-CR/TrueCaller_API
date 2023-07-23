@@ -5,7 +5,7 @@ const User = db.users; //get the User collection or table
 const Contact = db.contacts; //contact table
 
 const addContact = tryCatch(async (req, res) => {
-  const phoneNo = req.params.phonenum; //registered user's num, who is saving a contact
+  const phoneNo = req.user.phoneNumber; //registered user's num, who is saving a contact
   const contactObj = {
     contactName: req.body.name, //contact's  name
     contactNum: req.body.phoneNum, //contact's phone num

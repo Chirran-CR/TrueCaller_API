@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+
 const userRouter = require("./routes/userRouter.js");
 const contactRouter = require("./routes/contactRouter.js");
 const { notFound, errorHandler } = require("./controllers/errorController.js");
@@ -10,6 +12,7 @@ dotenv.config({path:"./.env"});
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 8080;
 

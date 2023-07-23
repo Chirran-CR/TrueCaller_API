@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 module.exports = (sequelize, DataTypes) =>{
      const User = sequelize.define("user",{
         name:{
@@ -15,6 +17,15 @@ module.exports = (sequelize, DataTypes) =>{
         emailAddress:{
             type:DataTypes.STRING,
             defaultValue:"",
+        },
+        password:{
+            type:DataTypes.STRING,
+            allowNull:false,
+            set(val){
+                const salt = bcrypt.genSaltSync(10);
+                const hashPsd = bcrypt.hashSync(val, salt);
+                this.setDataValue("password",hashPsd);
+            }
         }
      },{
         timestamps:false
