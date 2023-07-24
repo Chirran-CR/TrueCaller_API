@@ -4,6 +4,8 @@ const cookieParser = require("cookie-parser");
 
 const userRouter = require("./routes/userRouter.js");
 const contactRouter = require("./routes/contactRouter.js");
+const spamRouter = require("./routes/spamRouter.js");
+const globalRouter = require("./routes/globalRouter.js");
 const { notFound, errorHandler } = require("./controllers/errorController.js");
 
 //configurattion of env. variables
@@ -19,7 +21,8 @@ const PORT = process.env.PORT || 8080;
 //api
 app.use("/user",userRouter);
 app.use("/contact",contactRouter);
-
+app.use("/spam",spamRouter);
+app.use("/search",globalRouter);
 //for page not found error
 app.use(notFound);
 //for error in any controller of route

@@ -1,8 +1,10 @@
 const db = require("../models");
+const gdb = require("../models/indexGlobalDB");
 const tryCatch = require("../utils/tryCatch");
 
 const User = db.users; //get the User collection or table
 const Contact = db.contacts; //contact table
+const GlobalUser = gdb.globalUsers;
 
 const addContact = tryCatch(async (req, res) => {
   const phoneNo = req.user.phoneNumber; //registered user's num, who is saving a contact
@@ -12,9 +14,16 @@ const addContact = tryCatch(async (req, res) => {
     linkedPhoneNo: phoneNo,
   };
   const savedContactObj = await Contact.create(contactObj);
+   //save data into global db
+   const globalUserData = {
+    name:req.body.name,
+    phoneNumber:req.body.phoneNum,
+  };
+  const savedGlobalUserData = await GlobalUser.create(globalUserData);
   res.status(200).send({
     message: "Contact added Successfully!!",
     addedContact: savedContactObj,
+    addedContactIntoGlobalDB:savedGlobalUserData
   });
 });
 
