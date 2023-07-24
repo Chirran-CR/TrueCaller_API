@@ -8,6 +8,7 @@ const sequelize = new Sequelize(
     dbConfig.PASSWORD,
     {
         host:dbConfig.HOST,
+        port:3306,
         dialect:dbConfig.dialect,
         // operatorsAliases: false,
     }
