@@ -9,7 +9,7 @@ const Contact = db.contacts;
 const User = db.users;
 const Spam = db.spams;
 
-const searchByName = tryCatch(async (req, res) => {
+const search = tryCatch(async (req, res) => {
   const queryObj = req.query;
 
   if (queryObj.name) {
@@ -80,5 +80,5 @@ const searchByName = tryCatch(async (req, res) => {
 });
 
 module.exports = {
-  searchByName,
+  search,
 };

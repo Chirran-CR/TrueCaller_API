@@ -19,6 +19,10 @@ app.use(cookieParser());
 const PORT = process.env.PORT || 8080;
 
 //api
+app.use("/user",userRouter);
+app.use("/contact",contactRouter);
+app.use("/spam",spamRouter);
+app.use("/search",globalRouter);
 app.use("/",(req,res)=>{
     res.send({
         message:"Welcome to the API of phone's contact manager",
@@ -35,10 +39,6 @@ app.use("/",(req,res)=>{
         }
     })
 })
-app.use("/user",userRouter);
-app.use("/contact",contactRouter);
-app.use("/spam",spamRouter);
-app.use("/search",globalRouter);
 //for page not found error
 app.use(notFound);
 //for error in any controller of route
